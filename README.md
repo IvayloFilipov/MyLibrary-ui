@@ -16,6 +16,8 @@ This application is designed by using the **main** technologies below:
 
    1) **[Angular 12](https://angular.io/guide/releases)**
    2) **[TypeScript](https://www.typescripttutorial.net/)**
+   3) **[HTML5](https://en.wikipedia.org/wiki/HTML)**
+   4) **[CSS](https://www.w3schools.com/css/css_intro.asp)**
    
 ## **Tools Used**
    1) **[Visual Studio Code](https://code.visualstudio.com/)**
