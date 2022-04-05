@@ -1,0 +1,51 @@
+@import "~src/styles";
+
+.input-wrapper {
+  margin: 5px auto 5px auto;
+}
+
+.input-wrapper label {
+  text-shadow: 1px 1px black;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px 12px 12px;
+  margin: 8px 0;
+  height: 42px;
+  display: inline-block;
+  border: 1px solid $txt-color;
+  box-sizing: border-box;
+}
+
+.form-wrapper {
+  max-width: 400px;
+  text-align: center;
+  margin: auto;
+}
+
+.page-wrapper {
+  max-width: 500px;
+}
+
+.alert-field {
+  margin: 5px auto 10px auto;
+  color: #ffffff;
+  background-color: #ad3b32;
+  border: 1px solid #f5c2c7;
+  border-radius: 3px;
+  padding: 3px 0 3px 10px;
+  text-align: center;
+}
+
+.success-msg {
+  margin-bottom: 12px;
+}
+
+.required {
+  color: #f44336;
+  font-size: 24px;
+}

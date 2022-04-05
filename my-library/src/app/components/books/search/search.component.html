@@ -1,0 +1,102 @@
+<div class="page-wrapper">
+  <h2 class="page-title">Search books</h2>
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-wrapper">
+      <div class="input-wrapper">
+        <label for="title"><b>Title</b></label>
+        <input
+          type="text"
+          placeholder="Enter title"
+          name="title"
+          [(ngModel)]="form.title"
+          #title="ngModel"
+        />
+      </div>
+
+      <div class="input-wrapper">
+        <label for="genre"><b>Genre</b></label>
+        <input
+          type="text"
+          placeholder="Enter genre"
+          name="genre"
+          [(ngModel)]="form.genre"
+          #genre="ngModel"
+        />
+      </div>
+
+      <div class="input-wrapper">
+        <label for="author"><b>Author</b></label>
+        <input
+          type="text"
+          placeholder="Enter author"
+          name="author"
+          [(ngModel)]="form.author"
+          #author="ngModel"
+        />
+      </div>
+
+      <div class="input-wrapper">
+        <label for="description"><b>Description</b></label>
+        <input
+          type="text"
+          placeholder="Enter description"
+          name="description"
+          [(ngModel)]="form.description"
+          #description="ngModel"
+        />
+      </div>
+    </div>
+
+    <div class="button-wrapper">
+      <button type="submit" class="submit-btn">Search</button>
+    </div>
+  </form>
+
+  <div class="cards-wrapper" *ngIf="isGetBooksSuccessful">
+    <div
+      class="card"
+      *ngFor="let book of loadedBooks; index as i"
+      [routerLink]="['/books/', book.id]"
+    >
+      <div class="card-info-section">
+        <div class="card-cover-wrapper">
+          <img
+            [src]="book.imageAddress"
+            *ngIf="book.imageAddress != null"
+            class="book-cover"
+          />
+          <img
+            [src]="defaultCover"
+            *ngIf="book.imageAddress == null"
+            class="book-cover"
+          />
+        </div>
+        <h3 class="card-title">{{ book.title }}</h3>
+        <h5 class="card-authors">{{ book.allAuthors }}</h5>
+        <h5 class="card-genres">{{ book.allGenres }}</h5>
+        <p class="card-description" *ngIf="book.description != null">
+          {{ book.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination-nav" *ngIf="isGetBooksSuccessful">
+    <app-pagination
+      [currentPage]="currentPage"
+      [total]="total"
+      (goTo)="onGoTo($event)"
+      (next)="onNext($event)"
+      (previous)="onPrevious($event)"
+    ></app-pagination>
+  </div>
+
+  <h3 class="books-error-msg" *ngIf="isGetBooksFailed">
+    {{ errorMessage }}
+  </h3>
+</div>

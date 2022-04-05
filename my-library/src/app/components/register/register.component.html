@@ -1,0 +1,410 @@
+<div class="form-wrapper">
+  <form class="register-form" *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <div class="account-info-wrapper">
+      <span class="info-title">Account Information</span>
+      <div class="input-wrapper">
+        <label for="firstName"
+          ><b>First Name<span class="required">*</span></b></label
+        >
+        <input
+          type="text"
+          placeholder="Enter your first name"
+          name="firstName"
+          [(ngModel)]="form.firstName"
+          required
+          pattern="^[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^0-9!#$%&()*+,.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,63}[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+          maxlength="65"
+          #firstName="ngModel"
+        />
+
+        <div class="alert-field" *ngIf="firstName.errors && f.submitted">
+          <div *ngIf="firstName.errors['required']">First name is required</div>
+          <div *ngIf="firstName.errors['maxlength']">
+            First name must be at most 65 characters
+          </div>
+          <div *ngIf="firstName.errors['pattern']">
+            First name must start and end with a letter. Only letters, quotes,
+            dashes and spaces are allowed.
+          </div>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="lastName"
+          ><b>Last Name<span class="required">*</span></b></label
+        >
+        <input
+          type="text"
+          placeholder="Enter your last name"
+          name="lastName"
+          [(ngModel)]="form.lastName"
+          required
+          pattern="^[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^0-9!#$%&()*+,.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,63}[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+          maxlength="65"
+          #lastName="ngModel"
+        />
+
+        <div class="alert-field" *ngIf="lastName.errors && f.submitted">
+          <div *ngIf="lastName.errors['required']">Last name is required</div>
+          <div *ngIf="lastName.errors['maxlength']">
+            Last name must be at most 65 characters
+          </div>
+          <div *ngIf="lastName.errors['pattern']">
+            Last name must start and end with a letter. Only letters, quotes,
+            dashes and spaces are allowed.
+          </div>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="email"
+          ><b>Email<span class="required">*</span></b></label
+        >
+        <input
+          type="text"
+          placeholder="Enter your email"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          maxlength="65"
+          pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+          #email="ngModel"
+          (input)="isEmailTaken = false"
+        />
+
+        <div class="alert-field" *ngIf="email.errors && f.submitted">
+          <div *ngIf="email.errors['required']">Email is required</div>
+          <div *ngIf="email.errors['maxlength']">
+            Email must be at most 65 characters
+          </div>
+          <div *ngIf="email.errors['pattern']">
+            Email must be a valid email address
+          </div>
+        </div>
+
+        <div class="alert-field" *ngIf="isEmailTaken && f.submitted">
+          <div>Email is already taken</div>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="password"
+          ><b>Password<span class="required">*</span></b></label
+        >
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="10"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\#^\(\)_\-;:+])[A-Za-z\d@$!%*?&\#^\(\)_\-;:+]{10,65}$"
+          #password="ngModel"
+        />
+
+        <div class="alert-field" *ngIf="password.errors && f.submitted">
+          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['minlength']">
+            Password must be at least 10 characters
+          </div>
+          <div *ngIf="password.errors['pattern']">
+            Password must contain at least one uppercase letter, one lowercase
+            letter, one number, one special symbol. Maximum length is 65
+            characters.
+          </div>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="confirmPassword"
+          ><b>Confirm Password<span class="required">*</span></b></label
+        >
+        <input
+          type="password"
+          ngValidateEqual="password"
+          placeholder="Enter Password again"
+          name="confirmPassword"
+          [(ngModel)]="form.confirmPassword"
+          required
+          #confirmPassword="ngModel"
+        />
+
+        <div class="alert-field" *ngIf="confirmPassword.errors && f.submitted">
+          <div *ngIf="confirmPassword.errors['required']">
+            Confirm Password is required
+          </div>
+          <div *ngIf="confirmPassword.hasError('notEqual')">
+            Passwords do not match
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-info-wrapper">
+      <span class="info-title">Contact Information</span>
+      <div class="contact-info-nolabel">
+        <div class="contact-info-part1">
+          <div class="input-wrapper full-phone-wrapper">
+            <fieldset>
+              <legend>
+                <b>Phone Code / Number<span class="required">*</span></b>
+              </legend>
+              <div class="phone-code-wrapper">
+                <select
+                  name="phoneCode"
+                  [(ngModel)]="form.phoneCode"
+                  required
+                  #phoneCode="ngModel"
+                >
+                  <option [ngValue]="null" value="" disabled selected hidden>
+                    Select Code
+                  </option>
+                  <option
+                    *ngFor="let country of countries"
+                    [value]="country.phone"
+                  >
+                    {{ country.phoneShow + " (" + country.name + ")" }}
+                  </option>
+                </select>
+
+                <div
+                  class="alert-field"
+                  *ngIf="phoneCode.errors && f.submitted"
+                >
+                  <div *ngIf="phoneCode.errors['required']">
+                    Code is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="phone-number-wrapper">
+                <input
+                  type="text"
+                  placeholder="Enter your phone number"
+                  name="phoneNumberNoCode"
+                  [(ngModel)]="form.phoneNumberNoCode"
+                  required
+                  maxlength="65"
+                  pattern="^[0-9][0-9-]{1,63}[0-9]$|^[0-9]{1,2}$"
+                  #phoneNumberNoCode="ngModel"
+                />
+
+                <div
+                  class="alert-field"
+                  *ngIf="phoneNumberNoCode.errors && f.submitted"
+                >
+                  <div *ngIf="phoneNumberNoCode.errors['required']">
+                    Number is required
+                  </div>
+                  <div *ngIf="phoneNumberNoCode.errors['maxlength']">
+                    Number must be at most 65 characters
+                  </div>
+                  <div *ngIf="phoneNumberNoCode.errors['pattern']">
+                    The number should start and end with a digit. Only digits
+                    and dashes are allowed.
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="country"
+              ><b>Country<span class="required">*</span></b></label
+            >
+            <select
+              name="country"
+              [(ngModel)]="form.country"
+              required
+              #country="ngModel"
+            >
+              <option [ngValue]="null" value="" disabled selected hidden>
+                Select a Country
+              </option>
+              <option *ngFor="let country of countries" [value]="country.name">
+                {{ country.name }}
+              </option>
+            </select>
+
+            <div class="alert-field" *ngIf="country.errors && f.submitted">
+              <div *ngIf="country.errors['required']">Country is required</div>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="city"
+              ><b>City<span class="required">*</span></b></label
+            >
+            <input
+              type="text"
+              placeholder="Enter your City"
+              name="city"
+              [(ngModel)]="form.city"
+              required
+              maxlength="128"
+              pattern="^[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^0-9!#$%&()*+,\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,126}[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^0-9 !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+              #city="ngModel"
+            />
+
+            <div class="alert-field" *ngIf="city.errors && f.submitted">
+              <div *ngIf="city.errors['required']">City is required</div>
+              <div *ngIf="city.errors['maxlength']">
+                City must be at most 128 characters
+              </div>
+              <div *ngIf="city.errors['pattern']">
+                City name can contain only letters, dashes, dots and spaces.
+                City name must start and end with a letter.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="street"
+              ><b>Street<span class="required">*</span></b></label
+            >
+            <input
+              type="text"
+              placeholder="Enter your Street"
+              name="street"
+              [(ngModel)]="form.street"
+              required
+              maxlength="128"
+              pattern="^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^!#$%&()*+,\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,126}[^ !#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+              #street="ngModel"
+            />
+
+            <div class="alert-field" *ngIf="street.errors && f.submitted">
+              <div *ngIf="street.errors['required']">Street is required</div>
+              <div *ngIf="street.errors['maxlength']">
+                Street must be at most 128 characters
+              </div>
+              <div *ngIf="street.errors['pattern']">
+                Street can contain only letters, numbers, dashes, dots and
+                spaces. It must not end with a special symbol.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="streetNumber"
+              ><b>Street Number<span class="required">*</span></b></label
+            >
+            <input
+              type="text"
+              placeholder="Enter your Street Number"
+              name="streetNumber"
+              [(ngModel)]="form.streetNumber"
+              required
+              maxlength="65"
+              pattern="^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^!#$%&()*+,\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,63}[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+              #streetNumber="ngModel"
+            />
+
+            <div class="alert-field" *ngIf="streetNumber.errors && f.submitted">
+              <div *ngIf="streetNumber.errors['required']">
+                Street Number is required
+              </div>
+              <div *ngIf="streetNumber.errors['maxlength']">
+                Street Number must be at most 65 characters
+              </div>
+              <div *ngIf="streetNumber.errors['pattern']">
+                Street Number can contain only letters, numbers, dashes, dots
+                and spaces.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-info-part2">
+          <div class="input-wrapper">
+            <label for="buildingNumber"><b>Building Number</b></label>
+            <input
+              type="text"
+              placeholder="Enter your Building Number"
+              name="buildingNumber"
+              [(ngModel)]="form.buildingNumber"
+              maxlength="65"
+              pattern="^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^!#$%&()*+,\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,63}[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+              #buildingNumber="ngModel"
+            />
+
+            <div
+              class="alert-field"
+              *ngIf="buildingNumber.errors && f.submitted"
+            >
+              <div *ngIf="buildingNumber.errors['maxlength']">
+                Building Number must be at most 65 characters
+              </div>
+              <div *ngIf="buildingNumber.errors['pattern']">
+                Building Number can contain only letters, numbers, dashes, dots
+                and spaces. Building Number must start with a number.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="apartmentNumber"><b>Apartment Number</b></label>
+            <input
+              type="text"
+              placeholder="Enter your Apartment Number"
+              name="apartmentNumber"
+              [(ngModel)]="form.apartmentNumber"
+              maxlength="65"
+              pattern="^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n][^!#$%&()*+,\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,63}[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]$|^[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n]{1,2}$"
+              #apartmentNumber="ngModel"
+            />
+
+            <div
+              class="alert-field"
+              *ngIf="apartmentNumber.errors && f.submitted"
+            >
+              <div *ngIf="apartmentNumber.errors['maxlength']">
+                Apartment Number must be at most 65 characters
+              </div>
+              <div *ngIf="apartmentNumber.errors['pattern']">
+                Apartment Number can contain only letters, numbers, dashes, dots
+                and spaces. Apartment Number must start with a number.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="additionalInfo"><b>Additional Information</b></label>
+            <input
+              type="text"
+              placeholder="Enter your Additional Information"
+              name="additionalInfo"
+              [(ngModel)]="form.additionalInfo"
+              maxlength="1028"
+              #additionalInfo="ngModel"
+              class="additional-info"
+            />
+
+            <div
+              class="alert-field"
+              *ngIf="additionalInfo.errors && f.submitted"
+            >
+              <div *ngIf="additionalInfo.errors['maxlength']">
+                Additional Information must be at most 1028 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Register</button>
+  </form>
+
+  <div *ngIf="isSuccessful">
+    <div class="success-msg">
+      Dear {{ form.firstName }}, thanks for your registration to our library.
+      Your request is a subject of approval by our staff. You will be notified
+      via email upon receiving an approval.
+    </div>
+
+    <button type="button" class="submit-btn home-btn" routerLink="">
+      Go to home page
+    </button>
+  </div>
+</div>

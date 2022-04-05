@@ -1,0 +1,39 @@
+<div class="page-wrapper">
+    <h2 class="page-title">Unconfirmed Book Reservation Requests</h2>
+    <table class="books-table" *ngIf="isGetBooksReservationSuccessful">
+      <tr>
+        <th>No.</th>
+        <th>Book title</th>
+        <th>User</th>
+        <th>Email</th>
+        <th>Date Request Created</th>
+      </tr>
+
+      <tr
+        *ngFor="let request of loadedBooksReservationRequests; index as i"
+        [routerLink]="['/bookreservationrequests/details/', request.id]"
+        class="bookreservationrequests-rows"
+      >
+        <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+        <td>{{ request.bookTitle }}</td>
+        <td>{{ request.userName }}</td>
+        <td>{{ request.email }}</td>
+        <td>{{ request.createdOn }}</td>
+      </tr>
+    </table>
+
+    <div class="pagination-nav" *ngIf="isGetBooksReservationSuccessful">
+      <app-pagination
+        [currentPage]="currentPage"
+        [total]="total"
+        (goTo)="onGoTo($event)"
+        (next)="onNext($event)"
+        (previous)="onPrevious($event)"
+      ></app-pagination>
+    </div>
+  
+    <h3 class="books-error-msg" *ngIf="isGetBooksReservationFailed">
+      {{ errorMessage }}
+    </h3>
+  </div>
+  

@@ -1,0 +1,53 @@
+<div class="page-wrapper">
+  <h2 class="page-title">Add a new genre</h2>
+  <div class="form-wrapper">
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      *ngIf="!isAdded"
+      novalidate
+    >
+      <div class="input-wrapper">
+        <div class="input-wrapper">
+          <label for="title"
+            ><b>Name<span class="required">*</span></b></label
+          >
+          <input
+            type="text"
+            placeholder="Enter the genre name"
+            name="title"
+            [(ngModel)]="form.title"
+            required
+            maxlength="65"
+            #title="ngModel"
+            (input)="isFailed = false"
+            pattern="^(?=.*[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n])(.)+$"
+          />
+
+          <div class="alert-field" *ngIf="title.errors && f.submitted">
+            <div *ngIf="title.errors['required']">Genre name is required</div>
+            <div *ngIf="title.errors['maxlength']">
+              Genre name must be at most 65 characters
+            </div>
+            <div *ngIf="title.errors['pattern']">
+              Genre name must contain at least one letter or number
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isFailed">
+        <div class="alert-field">{{ errorMessage }}</div>
+      </div>
+
+      <button type="submit" class="btn">Add genre</button>
+      <button type="button" class="btn" (click)="back()">Go back</button>
+    </form>
+
+    <div *ngIf="isAdded">
+      <h3 class="success-msg">Genre added successfully.</h3>
+      <button type="button" class="btn" (click)="back()">Go back</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+@import "~src/styles";
+
+.input-wrapper {
+  margin: 5px auto 5px auto;
+}
+
+.input-wrapper label {
+  text-shadow: 1px 1px black;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px 20px 12px 12px;
+  margin: 8px 0;
+  height: 42px;
+  display: inline-block;
+  border: 1px solid $txt-color;
+  box-sizing: border-box;
+}
+
+.genre-dropdown {
+  background-color: #fff;
+}
+
+.author-dropdown {
+  background-color: #fff;
+}
+
+.e-multi-select-wrapper {
+  padding: 10px 10px;
+}
+
+.form-wrapper {
+  max-width: 700px;
+  text-align: center;
+  margin: auto;
+}
+
+.page-wrapper {
+  max-width: 800px;
+}
+
+.alert-field {
+  margin: 5px auto 10px auto;
+  color: #ffffff;
+  background-color: #ad3b32;
+  border: 1px solid #f5c2c7;
+  border-radius: 3px;
+  padding: 3px 0 3px 10px;
+  text-align: center;
+}
+
+.success-msg {
+  margin-bottom: 12px;
+}
+
+.update-book-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.update-confirm {
+  text-align: center;
+  margin: 30px auto 20px auto;
+}
+
+.left-side-wrapper {
+  width: 45%;
+  margin-right: 5%;
+}
+
+.right-side-wrapper {
+  width: 50%;
+}
+
+.right-side-wrapper .input-wrapper {
+  margin: 18px auto 0 auto;
+}
+
+.description-field {
+  height: 142px !important;
+}
+
+.buttons-wrapper {
+  text-align: center;
+  margin: 20px auto 20px auto;
+}
+
+.backend-error-msg {
+  width: 70%;
+  text-align: center;
+  margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .left-side-wrapper,
+  .right-side-wrapper {
+    width: 100%;
+    margin: 0;
+  }
+
+  .description-field {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+
+  .backend-error-msg {
+    width: 85%;
+  }
+}
+
+.btn-edit,
+.btn-delete,
+.btn-confirm,
+.btn-cancel {
+  max-width: 150px;
+}
+
+.btn-edit {
+  background-color: #b8ac0c;
+}
+
+.btn-edit:hover {
+  background-color: #dfd110;
+}
+
+.btn-delete,
+.btn-cancel {
+  background-color: #af0404;
+}
+
+.btn-delete:hover,
+.btn-cancel:hover {
+  background-color: #da0202;
+}
+
+.btn-confirm-update,
+.btn-confirm-delete {
+  background-color: #009c0d;
+}
+
+.btn-confirm-update:hover,
+.btn-confirm-delete:hover {
+  background-color: #00c911;
+}
+
+.error-page,
+.result-message-wrapper {
+  text-align: center;
+}
+
+.required {
+  color: #f44336;
+  font-size: 24px;
+}
+
+.e-multi-select-wrapper .e-multi-hidden {
+  visibility: hidden;
+}
+
+.field-availability {
+  margin: 8px auto !important;
+}
+
+.field-availability select {
+  margin: 5px auto !important;
+}
+
+.cover-instructions {
+  font-size: 13px;
+}
+
+.cover-wrapper {
+  margin: 3px auto 0 auto !important;
+}
+
+.cover-current-wrapper {
+  height: 200px;
+  margin: auto;
+  text-align: center;
+}
+
+.book-cover {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.delete-cover-wrapper {
+  margin-bottom: 5px;
+}

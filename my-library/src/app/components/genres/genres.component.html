@@ -1,0 +1,61 @@
+<div class="page-wrapper">
+  <h2 class="page-title">Genres</h2>
+  <div class="add-button-wrapper">
+    <button type="button" class="btn" routerLink="/genres/add-genre">
+      Add genre
+    </button>
+  </div>
+
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-wrapper">
+      <div class="input-wrapper">
+        <div>
+          <label for="name"><b>Name</b></label>
+        </div>
+        <input
+          type="text"
+          placeholder="Enter name"
+          name="name"
+          [(ngModel)]="form.name"
+          #title="ngModel"
+        />
+        <button type="submit" class="btn submit-btn">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="genres-table" *ngIf="isGetGenresSuccessful">
+    <tr>
+      <th>No.</th>
+      <th>Genre</th>
+    </tr>
+
+    <tr
+      *ngFor="let genre of loadedGenres; index as i"
+      [routerLink]="['/genres/details/', genre.id]"
+      class="genre-rows"
+    >
+      <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+      <td>{{ genre.name }}</td>
+    </tr>
+  </table>
+
+  <div class="pagination-nav" *ngIf="isGetGenresSuccessful">
+    <app-pagination
+      [currentPage]="currentPage"
+      [total]="total"
+      (goTo)="onGoTo($event)"
+      (next)="onNext($event)"
+      (previous)="onPrevious($event)"
+    ></app-pagination>
+  </div>
+
+  <h3 class="genres-error-msg" *ngIf="isGetGenresFailed">
+    {{ errorMessage }}
+  </h3>
+</div>

@@ -1,0 +1,160 @@
+@import "~src/styles";
+
+.page-wrapper {
+  width: 75%;
+  max-width: 1100px;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+.input-wrapper {
+  margin: 5px auto 5px auto;
+  width: 45%;
+}
+
+.input-wrapper label {
+  text-shadow: 1px 1px black;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px 12px 12px;
+  margin: 8px 0;
+  height: 42px;
+  display: inline-block;
+  border: 1px solid $txt-color;
+  box-sizing: border-box;
+}
+
+.button-wrapper {
+  margin-top: 8px;
+}
+
+.submit-btn {
+  display: block;
+  background-color: #5c470d;
+  color: #ffffff;
+  padding: 14px 20px;
+  cursor: pointer;
+  width: 95%;
+  border: none;
+  margin: auto;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.alert-field {
+  color: #ffffff;
+  background-color: #ad3b32;
+  border: 1px solid #f5c2c7;
+  border-radius: 3px;
+  padding: 3px 0 3px 10px;
+  text-align: center;
+  width: 94%;
+  margin: auto;
+}
+
+.books-table {
+  th:nth-child(1) {
+    width: 10%;
+  }
+}
+
+.cards-wrapper {
+  width: 90%;
+  margin: 1rem auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #ffffff50;
+  width: 23%;
+  border: 1px solid #666666;
+  border-radius: 5px;
+  padding: 8px;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  margin: 15px auto;
+  height: 300px;
+  text-shadow: 1px 1px black;
+}
+
+.card:hover {
+  background-color: #ffffff94;
+  // box-shadow: 5px 5px #888888;
+  cursor: pointer;
+}
+
+.card-info-section {
+  max-height: 100%;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-description {
+  font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+@media screen and (max-width: 450px) {
+  .input-wrapper {
+    width: 100%;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 451px) and (max-width: 700px) {
+  .card {
+    width: 47%;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 900px) {
+  .card {
+    width: 31%;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1300px) {
+  .card {
+    width: 23%;
+  }
+}
+
+.card-title,
+.card-authors,
+.card-genres,
+.card-description {
+  margin: 8px auto 0;
+}
+
+.card-cover-wrapper {
+  height: 120px;
+  margin: 0 auto 5px;
+}
+
+.card-cover-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+}

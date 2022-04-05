@@ -1,0 +1,193 @@
+@import "~src/styles";
+
+.form-wrapper {
+  width: 80%;
+}
+
+@media screen and (min-width: 350px) {
+  .form-wrapper {
+    min-width: 300px;
+  }
+}
+
+.register-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.account-info-wrapper {
+  width: 30%;
+  margin-right: 5%;
+}
+
+.contact-info-wrapper {
+  width: 65%;
+}
+
+.contact-info-nolabel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contact-info-part1 {
+  width: 46%;
+  margin-right: 8%;
+}
+
+.contact-info-part2 {
+  width: 46%;
+}
+
+@media screen and (max-width: 814px) {
+  .form-wrapper {
+    width: 60%;
+  }
+
+  .contact-info-wrapper,
+  .contact-info-part1,
+  .contact-info-part2 {
+    width: 100%;
+    margin: 0;
+  }
+
+  .account-info-wrapper {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+
+  fieldset {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 815px) {
+  .submit-btn {
+    min-width: 300px;
+    max-width: 35%;
+    margin: 20px auto auto auto !important;
+  }
+}
+
+.info-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #b5b8be;
+  text-shadow: 1px 1px black;
+}
+
+.full-phone-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.phone-code-wrapper {
+  flex: 43%;
+}
+
+.phone-number-wrapper {
+  flex: 57%;
+}
+
+@media screen and (max-width: 449px) {
+  .phone-code-wrapper {
+    flex: 48%;
+  }
+
+  .phone-number-wrapper {
+    flex: 52%;
+  }
+}
+
+@media screen and (min-width: 450px) and (max-width: 458px) {
+  .phone-code-wrapper {
+    flex: 47%;
+  }
+
+  .phone-number-wrapper {
+    flex: 53%;
+  }
+}
+
+@media screen and (min-width: 459px) and (max-width: 461px) {
+  .phone-code-wrapper {
+    flex: 46.5%;
+  }
+
+  .phone-number-wrapper {
+    flex: 53.5%;
+  }
+}
+
+@media screen and (min-width: 462px) and (max-width: 502px) {
+  .phone-code-wrapper {
+    flex: 46.6%;
+  }
+
+  .phone-number-wrapper {
+    flex: 53.4%;
+  }
+}
+
+@media screen and (min-width: 503px) and (max-width: 1105px) {
+  .phone-code-wrapper {
+    flex: 44%;
+  }
+
+  .phone-number-wrapper {
+    flex: 56%;
+  }
+}
+
+@media screen and (min-width: 1106px) and (max-width: 1400px) {
+  .phone-code-wrapper {
+    flex: 46.63%;
+  }
+
+  .phone-number-wrapper {
+    flex: 53.37%;
+  }
+}
+
+select {
+  width: 100%;
+  padding: 12px 5px 12px 8px;
+  height: 42px;
+  margin: 8px 0;
+  height: 42px;
+  display: inline-block;
+  border: 1px solid $txt-color;
+  box-sizing: border-box;
+}
+
+// Doesn't work
+select option[value=""] {
+  color: #d2d2d2;
+}
+
+.success-msg {
+  margin-bottom: 12px;
+}
+
+fieldset {
+  margin: 0;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contact-info-part2 .input-wrapper {
+  margin: 15px auto 15px auto;
+}
+
+.additional-info {
+  height: 130px !important;
+}
+
+.form-success {
+  max-width: 400px;
+}
+
+.home-btn {
+  max-width: 100%;
+}

@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <ul class="menu-button">
+    <li class="toggle" (click)="toggleMenu()">
+      <fa-icon [icon]="faAlignJustify" size="sm"></fa-icon> Menu
+    </li>
+  </ul>
+
+  <ul class="align-left">
+    <li>
+      <span class="button-text" routerLink="/home">Home</span>
+    </li>
+    <li *ngIf="!isLoggedOut()">
+      <span class="button-text" routerLink="/search"
+        >Search <fa-icon [icon]="faMagnifyingGlass" size="sm"></fa-icon
+      ></span>
+    </li>
+    <li *ngIf="isLibrarian()">
+      <span class="button-text" routerLink="/admin-menu">Admin Menu</span>
+    </li>
+  </ul>
+  <ul class="align-right">
+    <li *ngIf="isLoggedOut()">
+      <span class="button-text" routerLink="/register">Register</span>
+    </li>
+    <li *ngIf="isLoggedOut()">
+      <span class="button-text" routerLink="/login">Login</span>
+    </li>
+    <li *ngIf="!isLoggedOut()">
+      <span class="button-text" routerLink="" (click)="logOut()">Logout</span>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,61 @@
+<div class="page-wrapper">
+  <h2 class="page-title">Authors</h2>
+  <div class="add-button-wrapper">
+    <button type="button" class="btn" routerLink="/authors/add-author">
+      Add author
+    </button>
+  </div>
+
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-wrapper">
+      <div class="input-wrapper">
+        <div>
+          <label for="authorName"><b>Name</b></label>
+        </div>
+        <input
+          type="text"
+          placeholder="Enter name"
+          name="authorName"
+          [(ngModel)]="form.authorName"
+          #title="ngModel"
+        />
+        <button type="submit" class="btn submit-btn">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="authors-table" *ngIf="isGetAuthorsSuccessful">
+    <tr>
+      <th>No.</th>
+      <th>Author</th>
+    </tr>
+
+    <tr
+      *ngFor="let author of loadedAuthors; index as i"
+      [routerLink]="['/authors/details/', author.id]"
+      class="author-rows"
+    >
+      <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+      <td>{{ author.authorName }}</td>
+    </tr>
+  </table>
+
+  <div class="pagination-nav" *ngIf="isGetAuthorsSuccessful">
+    <app-pagination
+      [currentPage]="currentPage"
+      [total]="total"
+      (goTo)="onGoTo($event)"
+      (next)="onNext($event)"
+      (previous)="onPrevious($event)"
+    ></app-pagination>
+  </div>
+
+  <h3 class="author-error-msg" *ngIf="isGetAuthorsFailed">
+    {{ errorMessage }}
+  </h3>
+</div>

@@ -1,0 +1,59 @@
+.page-wrapper {
+  width: 100%;
+  max-width: 1100px;
+}
+
+.books-table {
+  margin-top: 20px;
+  border-radius: 0.25rem;
+  font-size: larger;
+  width: 100%;
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 25%), 0px 8px 10px 1px rgb(0 0 0 / 14%),
+    0px 3px 14px 2px rgb(0 0 0 / 12%);
+  border-collapse: collapse;
+  text-shadow: 1px 1px black;
+
+  tr:not(:last-child) {
+    border-bottom: 0.5px solid lightgrey;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 1rem 1.5rem;
+  }
+
+  th:nth-child(1) {
+    width: 10%;
+  }
+
+  td:nth-child(1) {
+    margin-left: 50px;
+  }
+
+  td,
+  th {
+    &.align-right {
+      text-align: right;
+      width: 100px;
+      padding: 16px 6px;
+    }
+  }
+}
+
+.bookreservationrequests-rows {
+  cursor: pointer;
+}
+
+.books-error-msg {
+  text-align: center;
+}
+
+.required {
+  color: #f44336;
+  font-size: 24px;
+}
+
+.pagination-nav {
+  margin-top: 15px;
+}

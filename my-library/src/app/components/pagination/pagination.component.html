@@ -1,0 +1,19 @@
+<nav>
+  <ul>
+    <li>
+      <button [disabled]="currentPage === 1" (click)="onGoTo(1)"><<</button>
+    </li>
+    <li>
+      <button [disabled]="currentPage === 1" (click)="onPrevious()"><</button>
+    </li>
+    <span class="page-number-info">Page {{ currentPage }}/{{ total }}</span>
+    <li>
+      <button [disabled]="currentPage === total" (click)="onNext()">></button>
+    </li>
+    <li>
+      <button [disabled]="currentPage === total" (click)="onGoTo(total)">
+        >>
+      </button>
+    </li>
+  </ul>
+</nav>

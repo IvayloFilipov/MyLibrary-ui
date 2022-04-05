@@ -1,0 +1,63 @@
+.page-wrapper {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.book-cover-wrapper {
+  height: 250px;
+  margin: auto;
+  position: relative;
+}
+
+.book-cover {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.btn-reserve {
+  background-color: #009c0d;
+}
+
+.btn-reserve:hover {
+  background-color: #00c911;
+}
+
+.btn-no {
+  background-color: #af0404;
+}
+
+.btn-no:hover {
+  background-color: #da0202;
+}
+
+.btn-confirm-reservation {
+  background-color: #009c0d;
+}
+
+.btn-confirm-reservation:hover {
+  background-color: #00c911;
+}
+
+.reserve-confirm {
+  text-align: center;
+  margin: 30px auto 20px auto;
+}
+
+.btn-edit {
+  background-color: #b8ac0c;
+}
+
+.btn-edit:hover {
+  background-color: #dfd110;
+}

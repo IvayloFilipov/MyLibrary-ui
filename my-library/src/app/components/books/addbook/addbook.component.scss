@@ -1,0 +1,116 @@
+@import "~src/styles";
+
+.input-wrapper {
+  margin: 5px auto 5px auto;
+}
+
+.input-wrapper label {
+  text-shadow: 1px 1px black;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="file"],
+textarea {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px 20px 12px 12px;
+  margin: 8px 0;
+  height: 42px;
+  display: inline-block;
+  border: 1px solid $txt-color;
+  box-sizing: border-box;
+}
+
+.genre-dropdown {
+  background-color: #fff;
+}
+
+.e-multi-select-wrapper {
+  padding: 10px 10px;
+}
+
+.form-wrapper {
+  max-width: 700px;
+  text-align: center;
+  margin: auto;
+}
+
+.page-wrapper {
+  max-width: 800px;
+}
+
+.alert-field {
+  margin: 5px auto 10px auto;
+  color: #ffffff;
+  background-color: #ad3b32;
+  border: 1px solid #f5c2c7;
+  border-radius: 3px;
+  padding: 3px 0 3px 10px;
+  text-align: center;
+}
+
+.success-msg {
+  margin-bottom: 12px;
+}
+
+.required {
+  color: #f44336;
+  font-size: 24px;
+}
+
+.add-book-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.left-side-wrapper {
+  width: 45%;
+  margin-right: 5%;
+}
+
+.right-side-wrapper {
+  width: 50%;
+}
+
+.right-side-wrapper .input-wrapper {
+  margin: 15px auto 15px auto;
+}
+
+.description-field {
+  height: 133px !important;
+}
+
+.buttons-wrapper {
+  text-align: center;
+  margin: 10px auto 0 auto;
+}
+
+.backend-error-msg {
+  width: 70%;
+  text-align: center;
+  margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .left-side-wrapper,
+  .right-side-wrapper {
+    width: 100%;
+    margin: 0;
+  }
+
+  .description-field {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+
+  .backend-error-msg {
+    width: 85%;
+  }
+}
+
+.cover-instructions {
+  font-size: 13px;
+}

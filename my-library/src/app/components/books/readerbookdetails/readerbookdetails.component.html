@@ -1,0 +1,45 @@
+<div class="page-wrapper">
+  <div *ngIf="isGetFailed">
+    <h2 class="page-title">{{ errorMessage }}</h2>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+  </div>
+
+  <div *ngIf="!isInReserveProcess && !isGetFailed">
+    <div class="book-cover-wrapper">
+      <img [src]="imageURL" class="book-cover" *ngIf="imageURL != null" />
+      <img [src]="defaultCover" class="book-cover" *ngIf="imageURL == null" />
+    </div>
+    <h2>{{ title }}</h2>
+    <h4>Author(s): {{ authors }}</h4>
+    <h4>Genre(s): {{ genres }}</h4>
+    <div>{{ description }}</div>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+    <!-- prettier-ignore -->
+    <button type="button" class="btn btn-reserve"
+      *ngIf="reservationAllowed" (click)="openModal('custom-modal-1')">Reserve</button>
+    <button
+      type="button"
+      class="btn btn-edit"
+      *ngIf="isLibrarian()"
+      [routerLink]="['/books/update/', id]"
+    >
+      Update book
+    </button>
+  </div>
+
+  <div class="result-message-wrapper" *ngIf="isInReserveProcess">
+    <h2 class="result-msg">{{ reservationMsg }}</h2>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+  </div>
+
+  <!-- prettier-ignore -->
+  <app-modal id="custom-modal-1" class="reserve-confirm" *ngIf="this.loadedBook != null">
+    <div class="modal-message">
+      <span>Send a reservation request for book '{{this.loadedBook.title}}'?</span>
+    </div>
+    <button type="submit" class="btn btn-reserve"
+      (click)="reserveBook(); closeModal('custom-modal-1')">Yes</button>
+    <button type="button" class="btn btn-no"
+      (click)="closeModal('custom-modal-1')">No</button>
+  </app-modal>
+</div>

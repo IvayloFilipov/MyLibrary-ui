@@ -1,0 +1,99 @@
+<div class="page-wrapper">
+  <div class="error-page" *ngIf="isGetFailed">
+    <h2 class="page-title">{{ errorMessage }}</h2>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+  </div>
+  <div *ngIf="isShowingOperations && !isTryingToDelete && !isUpdated">
+    <h2 class="page-title">
+      Author '{{ this.loadedAuthor.authorName }}' operations
+    </h2>
+    <div class="form-wrapper">
+      <form
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        id="ngForm"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="input-wrapper">
+          <div class="input-wrapper">
+            <label for="title"
+              ><b>Name<span class="required">*</span></b></label
+            >
+            <input
+              type="text"
+              placeholder="Enter a new name for this author"
+              name="title"
+              [(ngModel)]="form.title"
+              required
+              maxlength="256"
+              #title="ngModel"
+              (input)="isUpdateFailed = false"
+              pattern="^(?=.*[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n])(.)+$"
+            />
+
+            <div class="alert-field" *ngIf="title.errors && f.submitted">
+              <div *ngIf="title.errors['required']">
+                Author name is required
+              </div>
+              <div *ngIf="title.errors['maxlength']">
+                Author name must be at most 256 characters
+              </div>
+              <div *ngIf="title.errors['pattern']">
+                Author name must contain at least one letter or number
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isUpdateFailed && !title.errors">
+            <div class="alert-field">{{ errorMessage }}</div>
+          </div>
+        </div>
+
+        <!-- prettier-ignore -->
+        <div class="buttons-wrapper">
+          <button type="button" class="btn btn-edit"
+            (click)="this.isInConfirmProcess = true; this.isInUpdateProcess = true; openModal('custom-modal-1')"
+            >Update author</button>
+
+          <button type="button" class="btn" (click)="back()">Go back</button>
+
+          <button type="button" class="btn btn-delete"
+            (click)="this.isInConfirmProcess = true; this.isUpdateFailed = false;
+            checkAuthorBooksNumber(); openModal('custom-modal-1')"
+            >Delete author</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="result-message-wrapper" *ngIf="isTryingToDelete || isUpdated">
+    <h2 class="result-msg" *ngIf="isTryingToDelete">
+      {{ this.deletingMsg }}
+    </h2>
+
+    <h2 class="result-msg" *ngIf="isUpdated">Author updated successfully.</h2>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+  </div>
+
+  <!-- prettier-ignore -->
+  <app-modal id="custom-modal-1" class="update-confirm">
+    <div class="modal-message">
+      <span *ngIf="isInUpdateProcess">Are you sure you want to update the author?</span>
+      <span *ngIf="!isInUpdateProcess">
+        <span *ngIf="booksForAuthor > 0">The '{{ this.loadedAuthor.authorName }}' author is assigned to {{ booksForAuthor }}
+          {{ booksForAuthor > 1 ? "books" : "book" }}.<br/><br/>
+          In order to delete the author, please remove it from the {{ booksForAuthor > 1 ? "books" : "book" }} first.
+        </span>
+
+        <span *ngIf="booksForAuthor == 0">Are you sure you want to delete the author?</span>        
+      </span>
+    </div>
+    <button type="submit" form="ngForm" class="btn btn-confirm-update" *ngIf="isInUpdateProcess"
+      (click)="closeModal('custom-modal-1')">Yes</button>
+    <button type="button" class="btn btn-confirm-delete" *ngIf="!isInUpdateProcess && booksForAuthor == 0"
+      (click)="deleteAuthor(); closeModal('custom-modal-1')">Yes</button>
+
+    <button type="button" class="btn btn-cancel"
+      (click)="this.isInUpdateProcess = false; this.isInConfirmProcess = false; closeModal('custom-modal-1')">Cancel</button>
+  </app-modal>
+</div>

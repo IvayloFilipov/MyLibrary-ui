@@ -1,0 +1,104 @@
+<div class="page-wrapper">
+  <section class="home-wrapper">
+    <div>
+      <div class="page-title">
+        <h2 class="text-align"><b>- AROUND THE LIBRARY -</b></h2>
+      </div>
+      <div class="general-info-wrapper">
+        <span class="count-item">
+          <fa-icon [icon]="faBook" class="info-icon"></fa-icon>Books:
+          {{ booksCount }}</span
+        >
+        <span class="count-item">
+          <fa-icon [icon]="faListAlt" class="info-icon"></fa-icon>Genres:
+          {{ genresCount }}</span
+        >
+        <span class="count-item">
+          <fa-icon [icon]="faBookReader" class="info-icon"></fa-icon>Readers:
+          {{ readersCount }}</span
+        >
+      </div>
+    </div>
+
+    <div class="search-field-wrapper" *ngIf="!isLoggedOut()">
+      <span class="search-field" [routerLink]="'/search'"
+        >Looking for a specific book?
+        <fa-icon [icon]="faMagnifyingGlass" class="info-icon"></fa-icon
+      ></span>
+    </div>
+
+    <div class="page-title">
+      <h2 class="text-align header-info">
+        <span><b>- MOST RECENT BOOKS -</b></span>
+      </h2>
+      <p class="description-info">{{ descriptionInfoText }}</p>
+    </div>
+
+    <div
+      class="cards-wrapper"
+      *ngIf="isGetBooksSuccessful && loadedBooks.length > 0"
+    >
+      <div
+        class="card"
+        *ngFor="let book of loadedBooks; index as i"
+        [routerLink]="[isLoggedOut() ? null : '/books/', book.id]"
+      >
+        <div class="card-info-section">
+          <div class="card-cover-wrapper">
+            <img
+              [src]="book.imageAddress"
+              class="book-cover"
+              *ngIf="book.imageAddress != null"
+            />
+            <img
+              [src]="defaultCover"
+              class="book-cover"
+              *ngIf="book.imageAddress == null"
+            />
+          </div>
+          <h3 class="card-title">{{ book.title }}</h3>
+          <h5 class="card-authors">{{ book.allAuthors }}</h5>
+          <p class="card-description" *ngIf="book.description != null">
+            {{ book.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="books-error-msg" *ngIf="isGetBooksFailed">
+      {{ errorMessage }}
+    </h3>
+
+    <div
+      class="pagination-nav"
+      *ngIf="isGetBooksSuccessful && loadedBooks.length > 0"
+    >
+      <app-pagination
+        [currentPage]="currentPage"
+        [total]="totalPages"
+        (goTo)="onGoTo($event)"
+        (next)="onNext($event)"
+        (previous)="onPrevious($event)"
+      >
+      </app-pagination>
+    </div>
+  </section>
+</div>
+
+<div class="page-wrapper">
+  <h2 class="text-align">- LIBRARY ADDRESS -</h2>
+  <div class="footer">
+    <h4 class="address">1504 Sofia, 88 "Vasil Levski" blvd., Bulgaria</h4>
+    <p class="phone">
+      Phone: +359 (2) 9183 212, Mobile: +359 (888) 888 888, E-mail:<a
+        class="mail"
+        href="mailto:rilalibrary@abv.bg"
+      >
+        rilalibrary@abv.bg</a
+      >
+    </p>
+    <p class="copyright">
+      &copy; Copyrights: Rila Team. Open source project.
+    </p>
+  </div>
+</div>

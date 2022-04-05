@@ -1,0 +1,252 @@
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+
+<div class="page-wrapper">
+  <div class="error-page" *ngIf="isGetFailed">
+    <h2 class="page-title">{{ errorMessage }}</h2>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+  </div>
+  <div
+    class="book-details-wrapper"
+    *ngIf="isShowingOperations && !isTryingToDelete && !isUpdated"
+  >
+    <h2 class="page-title">Book '{{ this.loadedBook.title }}' operations</h2>
+
+    <div class="cover-current-wrapper" *ngIf="imageURL != null">
+      <img [src]="imageURL" class="book-cover" />
+    </div>
+    <div class="form-wrapper">
+      <form
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        id="ngForm"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="update-book-form">
+          <div class="left-side-wrapper">
+            <div class="input-wrapper">
+              <label for="title"
+                ><b>Name<span class="required">*</span></b></label
+              >
+              <input
+                type="text"
+                placeholder="Enter a new title for this book"
+                name="title"
+                [(ngModel)]="form.title"
+                required
+                maxlength="256"
+                #title="ngModel"
+                (input)="isUpdateFailed = false"
+                pattern="^(?=.*[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n])(.)+$"
+              />
+
+              <div class="alert-field" *ngIf="title.errors && f.submitted">
+                <div *ngIf="title.errors['required']">
+                  Book title is required
+                </div>
+                <div *ngIf="title.errors['maxlength']">
+                  Book title must be at most 256 characters
+                </div>
+                <div *ngIf="title.errors['pattern']">
+                  Book title must contain at least one letter or number
+                </div>
+              </div>
+            </div>
+
+            <div class="input-wrapper">
+              <label for="quantity"
+                ><b>Quantity<span class="required">*</span></b>
+              </label>
+              <input
+                type="number"
+                placeholder="Enter a quantity for this book"
+                name="quantity"
+                [(ngModel)]="form.quantity"
+                required
+                min="0"
+                #quantity="ngModel"
+                (input)="isUpdateFailed = false"
+              />
+
+              <div class="alert-field" *ngIf="quantity.errors && f.submitted">
+                <div *ngIf="quantity.errors['required']">
+                  Book quantity is required
+                </div>
+                <div *ngIf="quantity.errors['min']">
+                  Book quantity can't be less than zero
+                </div>
+              </div>
+            </div>
+
+            <label for="authors"
+              ><b>Authors<span class="required">*</span></b></label
+            >
+            <div class="input-wrapper author-dropdown">
+              <ejs-multiselect
+                name="authors"
+                [(ngModel)]="form.authors"
+                required
+                #authors="ngModel"
+                [dataSource]="loadedAuthors"
+                [fields]="localAuthorFields"
+                [placeholder]="localAuthorWaterMark"
+                [value]="defaultAuthors"
+              ></ejs-multiselect>
+              <div class="alert-field" *ngIf="authors.errors && f.submitted">
+                <div *ngIf="authors.errors['required']">Author is required</div>
+              </div>
+            </div>
+
+            <label for="genres"
+              ><b>Genres<span class="required">*</span></b></label
+            >
+            <div class="input-wrapper genre-dropdown">
+              <ejs-multiselect
+                name="genres"
+                [(ngModel)]="form.genres"
+                required
+                #genres="ngModel"
+                [dataSource]="loadedGenres"
+                [fields]="localFields"
+                [placeholder]="localWaterMark"
+                [value]="defaultGenres"
+              ></ejs-multiselect>
+              <div class="alert-field" *ngIf="genres.errors && f.submitted">
+                <div *ngIf="genres.errors['required']">Genre is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-side-wrapper">
+            <div class="input-wrapper field-availability">
+              <label for="availability"
+                ><b>Availability<span class="required">*</span></b></label
+              >
+              <select
+                name="availability"
+                [(ngModel)]="form.availability"
+                required
+                #availability="ngModel"
+              >
+                <option [ngValue]="null" value="" disabled selected>
+                  Select Availability
+                </option>
+                <option [ngValue]="true">Available</option>
+                <option [ngValue]="false">Not available</option>
+              </select>
+            </div>
+
+            <div class="input-wrapper">
+              <label for="description"><b>Description</b></label>
+              <textarea
+                class="description-field"
+                type="text"
+                placeholder="Enter the book description"
+                name="description"
+                [(ngModel)]="form.description"
+                maxlength="1028"
+                #description="ngModel"
+                (input)="isUpdateFailed = false"
+              ></textarea>
+
+              <div
+                class="alert-field"
+                *ngIf="description.errors && f.submitted"
+              >
+                <div *ngIf="description.errors['maxlength']">
+                  Book description must be at most 1028 characters
+                </div>
+              </div>
+            </div>
+
+            <div class="input-wrapper cover-wrapper">
+              <label for="cover"><b>Book Cover</b></label>
+              <input
+                class="cover-fields-wrapper"
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                name="cover"
+                [(ngModel)]="form.cover"
+                #cover="ngModel"
+                (input)="isUpdateFailed = false"
+                (change)="onFileUpload($event)"
+              />
+
+              <div class="delete-cover-wrapper" *ngIf="imageURL != null">
+                <label for="deleteCover">Delete cover</label>
+                <input
+                  type="checkbox"
+                  name="deleteCover"
+                  [(ngModel)]="form.deleteCover"
+                  #deleteCover="ngModel"
+                  (change)="deleteUploadedCover()"
+                />
+              </div>
+              <div class="cover-instructions">
+                * Supported formats: jpg, jpeg, png<br />
+                * Maximum allowed file size is 512 KB
+              </div>
+              <div
+                class="alert-field"
+                *ngIf="!validFileFormat || !validFileSize"
+              >
+                <div *ngIf="!validFileFormat">Invalid file format</div>
+                <div *ngIf="!validFileSize">File size is over the limit</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="isUpdateFailed || isGetGenresFailed || isGetAuthorsFailed"
+            class="backend-error-msg"
+          >
+            <div class="alert-field">{{ errorMessage }}</div>
+          </div>
+        </div>
+
+        <!-- prettier-ignore -->
+        <div class="buttons-wrapper">
+          <button type="button" class="btn btn-edit"
+            (click)="this.isInConfirmProcess = true; this.isInUpdateProcess = true; openModal('custom-modal-1')"
+            >Update book</button>
+
+          <button type="button" class="btn" (click)="back()">Go back</button>
+
+          <button type="button" class="btn btn-delete"
+            (click)="this.isInConfirmProcess = true; this.isUpdateFailed = false;
+              compareBookQuantity(); openModal('custom-modal-1')"
+            >Delete book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="result-message-wrapper" *ngIf="isTryingToDelete || isUpdated">
+    <h2 class="result-msg" *ngIf="isTryingToDelete">
+      {{ this.deletingMsg }}
+    </h2>
+
+    <h2 class="result-msg" *ngIf="isUpdated">Book updated successfully.</h2>
+    <button type="button" class="btn" (click)="back()">Go back</button>
+  </div>
+
+  <!-- prettier-ignore -->
+  <app-modal id="custom-modal-1" class="update-confirm">
+    <div class="modal-message">
+      <span *ngIf="isInUpdateProcess">Are you sure you want to update the book?</span>
+      <span *ngIf="!isInUpdateProcess">
+        <span *ngIf="quantityMatch === false">The book was already reserved by reader(s).
+          In order to delete the book, all copies must be returned to the library.</span>        
+        
+        <span *ngIf="quantityMatch === true">Are you sure you want to delete the book?</span>
+      </span>
+    </div>
+    <button type="submit" form="ngForm" class="btn btn-confirm-update" *ngIf="isInUpdateProcess"
+      (click)="closeModal('custom-modal-1')">Yes</button>
+    <button type="button" class="btn btn-confirm-delete" *ngIf="!isInUpdateProcess && quantityMatch === true"
+      (click)="deleteBook(); closeModal('custom-modal-1')">Yes</button>
+
+    <button type="button" class="btn btn-cancel"
+      (click)="this.isInUpdateProcess = false; this.isInConfirmProcess = false; closeModal('custom-modal-1')">Cancel</button>
+  </app-modal>
+</div>

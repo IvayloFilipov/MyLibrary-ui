@@ -1,0 +1,43 @@
+@import "~src/styles";
+
+.form-wrapper {
+  width: 60%;
+  max-width: 500px;
+}
+
+@media screen and (min-width: 350px) {
+  .form-wrapper {
+    min-width: 300px;
+  }
+}
+
+.forgot-button {
+  color: $txt-color;
+}
+
+.login-links {
+  margin: 10px auto 10px auto;
+  position: relative;
+  flex: 50%;
+  text-align: right;
+}
+
+.loginError {
+  margin: 10px auto 10px auto;
+  color: #ffffff;
+  background-color: #ad3b32;
+  border: 1px solid #f5c2c7;
+  border-radius: 3px;
+  padding: 3px 0 3px 10px;
+  text-align: center;
+}
+
+.toggle-password {
+  float: right;
+  left: -15px;
+  margin-top: -38px;
+  position: relative;
+  z-index: 2;
+  color: #838383;
+  font-size: 18px;
+}

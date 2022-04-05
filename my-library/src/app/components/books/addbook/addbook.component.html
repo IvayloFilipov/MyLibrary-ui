@@ -1,0 +1,162 @@
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+
+<div class="page-wrapper">
+  <h2 class="page-title">Add a new book</h2>
+  <div class="form-wrapper">
+    <form
+      class="add-book-form"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      *ngIf="!isAdded"
+      novalidate
+    >
+      <div class="left-side-wrapper">
+        <div class="input-wrapper">
+          <label for="title"
+            ><b>Title<span class="required">*</span></b></label
+          >
+          <input
+            type="text"
+            placeholder="Enter the book title"
+            name="title"
+            [(ngModel)]="form.title"
+            required
+            maxlength="256"
+            #title="ngModel"
+            (input)="isFailed = false"
+            pattern="^(?=.*[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n])(.)+$"
+          />
+
+          <div class="alert-field" *ngIf="title.errors && f.submitted">
+            <div *ngIf="title.errors['required']">Book title is required</div>
+            <div *ngIf="title.errors['maxlength']">
+              Book title must be at most 256 characters
+            </div>
+            <div *ngIf="title.errors['pattern']">
+              Book title must contain at least one letter or number
+            </div>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <label for="quantity"
+            ><b>Quantity<span class="required">*</span></b></label
+          >
+          <input
+            type="number"
+            placeholder="Enter a book quantity"
+            name="quantity"
+            [(ngModel)]="form.quantity"
+            required
+            min="1"
+            #quantity="ngModel"
+            (input)="isFailed = false"
+          />
+          <div class="alert-field" *ngIf="quantity.errors && f.submitted">
+            <div *ngIf="quantity.errors['required']">
+              Book quantity is required
+            </div>
+            <div *ngIf="quantity.errors['min']">
+              Book quantity can't be zero or less than zero'
+            </div>
+          </div>
+        </div>
+
+        <label for="authors"
+          ><b>Authors<span class="required">*</span></b></label
+        >
+        <div class="input-wrapper genre-dropdown">
+          <ejs-multiselect
+            name="authors"
+            [(ngModel)]="form.authors"
+            required
+            #authors="ngModel"
+            [dataSource]="loadedAuthors"
+            [fields]="localAuthorFields"
+            [placeholder]="localAuthorWaterMark"
+          ></ejs-multiselect>
+          <div class="alert-field" *ngIf="authors.errors && f.submitted">
+            <div *ngIf="authors.errors['required']">Author is required</div>
+          </div>
+        </div>
+
+        <label for="genres"
+          ><b>Genres<span class="required">*</span></b></label
+        >
+        <div class="input-wrapper genre-dropdown">
+          <ejs-multiselect
+            name="genres"
+            [(ngModel)]="form.genres"
+            required
+            #genres="ngModel"
+            [dataSource]="loadedGenres"
+            [fields]="localFields"
+            [placeholder]="localWaterMark"
+          ></ejs-multiselect>
+          <div class="alert-field" *ngIf="genres.errors && f.submitted">
+            <div *ngIf="genres.errors['required']">Genre is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-side-wrapper">
+        <div class="input-wrapper">
+          <label for="description"><b>Description</b></label>
+          <textarea
+            class="description-field"
+            type="text"
+            placeholder="Enter the book description"
+            name="description"
+            [(ngModel)]="form.description"
+            maxlength="1028"
+            #description="ngModel"
+            (input)="isFailed = false"
+          ></textarea>
+
+          <div class="alert-field" *ngIf="description.errors && f.submitted">
+            <div *ngIf="description.errors['maxlength']">
+              Book description must be at most 1028 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <label for="cover"><b>Book Cover</b></label>
+          <input
+            class="cover-field"
+            type="file"
+            accept=".jpg, .jpeg, .png"
+            name="cover"
+            [(ngModel)]="form.cover"
+            #cover="ngModel"
+            (input)="isFailed = false"
+            (change)="onFileUpload($event)"
+          />
+          <div class="cover-instructions">
+            * Supported formats: jpg, jpeg, png<br />
+            * Maximum allowed file size is 512 KB
+          </div>
+          <div class="alert-field" *ngIf="!validFileFormat || !validFileSize">
+            <div *ngIf="!validFileFormat">Invalid file format</div>
+            <div *ngIf="!validFileSize">File size is over the limit</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isFailed || isGetGenresFailed" class="backend-error-msg">
+        <div class="alert-field">{{ errorMessage }}</div>
+      </div>
+
+      <div class="buttons-wrapper">
+        <button type="submit" class="btn">Add book</button>
+        <button type="button" class="btn" (click)="back()">Go back</button>
+      </div>
+    </form>
+
+    <div *ngIf="isAdded">
+      <h3 class="success-msg">Book added successfully.</h3>
+      <button type="button" class="btn" (click)="back()">Go back</button>
+    </div>
+  </div>
+</div>

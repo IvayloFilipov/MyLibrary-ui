@@ -1,0 +1,54 @@
+<div class="page-wrapper">
+    <h2 class="page-title">Add a new author</h2>
+    <div class="form-wrapper">
+      <form
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm"
+        *ngIf="!isAdded"
+        novalidate
+      >
+        <div class="input-wrapper">
+          <div class="input-wrapper">
+            <label for="title"
+              ><b>Name<span class="required">*</span></b></label
+            >
+            <input
+              type="text"
+              placeholder="Enter the author name"
+              name="title"
+              [(ngModel)]="form.title"
+              required
+              maxlength="256"
+              #title="ngModel"
+              (input)="isFailed = false"
+              pattern="^(?=.*[^ !'&quot;#$%&()*+,-.\/:;&lt;=&gt;?@[\]^_`{|}~\r\n])(.)+$"
+            />
+  
+            <div class="alert-field" *ngIf="title.errors && f.submitted">
+              <div *ngIf="title.errors['required']">Author name is required</div>
+              <div *ngIf="title.errors['maxlength']">
+                Author name must be at most 256 characters
+              </div>
+              <div *ngIf="title.errors['pattern']">
+                Author name must contain at least one letter or number
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="isFailed">
+          <div class="alert-field">{{ errorMessage }}</div>
+        </div>
+  
+        <button type="submit" class="btn">Add author</button>
+        <button type="button" class="btn" (click)="back()">Go back</button>
+      </form>
+  
+      <div *ngIf="isAdded">
+        <h3 class="success-msg">Author added successfully.</h3>
+        <button type="button" class="btn" (click)="back()">Go back</button>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,114 @@
+<div class="page-wrapper">
+    <div class="error-page" *ngIf="isGetFailed">
+      <h2 class="page-title">{{ errorMessage }}</h2>
+      <button type="button" class="btn" (click)="back()">Go back</button>
+    </div>
+    <div *ngIf="isShowingOperations && !isTryingToReject && !isRejected && !isTryingToApprove && !isApproved">
+      <div class="form-wrapper">
+        <label for="title"
+        ><b>Book Title: {{loadedBookReservationRequest.bookTitle}}</b></label>
+      <p></p>
+      <div class="form-wrapper">
+        <label for="title"
+        ><b>Book Quantity: {{loadedBookReservationRequest.quantity}}</b></label>
+      </div>
+      <p></p>
+      <div class="form-wrapper">
+        <label for="title"
+        ><b>Book Availability: {{loadedBookReservationRequest.isAvailable}}</b></label>
+      </div>
+      <p></p>
+      <div class="form-wrapper">
+        <label for="title"
+        ><b>User name: {{loadedBookReservationRequest.userName}}</b></label>
+      </div>
+      <p></p>
+      <div class="form-wrapper">
+        <label for="title"
+        ><b>Created Date Request: {{loadedBookReservationRequest.createdRequestDate}}</b></label>
+      </div>
+      <p></p>
+
+      <div class="form-wrapper">
+      <form
+        name="form"
+        id="ngForm"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="input-wrapper">
+          <div class="input-wrapper">
+            <label for="message"
+              ><b>Message for Approval or Rejection<span class="required">*</span></b></label
+            >
+            <input
+              type="text"
+              placeholder="Enter a message"
+              name="message"
+              [(ngModel)]="form.message"
+              required
+              maxlength="1028"
+              #message="ngModel"
+              (input)="isUpdateFailed = false"
+            />
+            <div class="alert-field" *ngIf="message.errors && this.isInConfirmProcess">
+              <div *ngIf="message.errors['required']">
+                Message is required
+              </div>
+              <div *ngIf="message.errors['maxlength']">
+                Message must be at most 1028 characters
+              </div>
+            </div>
+            <div *ngIf="isUpdateFailed && !message.errors">
+              <div class="alert-field">{{ errorMessage }}</div>
+            </div>
+          </div>
+        </div>
+    
+    <div class="buttons-wrapper">
+      <button type="button" class="btn btn-reject"
+        (click)="this.isInConfirmProcess = true; this.isInRejectProcess = true; message.errors ? null : openModal('custom-modal-1')"
+        >Reject</button>
+
+      <button type="button" class="btn" (click)="back()">Go back</button>
+
+      <button type="button" class="btn btn-approve"
+       (click)="this.isInConfirmProcess = true; message.errors ? null : openModal('custom-modal-1')"
+        >Approve</button>
+    </div>
+  </form>
+</div>
+ </div>
+</div>
+
+<div class="result-message-wrapper" *ngIf="isTryingToReject || isTryingToApprove">
+    <h2 class="result-msg" *ngIf="isTryingToReject">
+    {{ this.rejectingMsg }}
+    </h2>
+
+    <h2 class="result-msg" *ngIf="isTryingToApprove">
+    {{ this.approvingMsg }}
+    </h2>
+  <button type="button" class="btn" (click)="back()">Go back</button>
+</div>
+
+<!-- prettier-ignore -->
+
+    <app-modal id="custom-modal-1" class="reject-confirm">
+      <div class="modal-message">
+        <span *ngIf="isInRejectProcess">Are you sure you want to reject the request?</span>
+        <span *ngIf="!isInRejectProcess">
+          <span>Are you sure you want to approve the request?</span>
+        </span>
+      </div>
+      <button type="button" form="ngForm" class="btn btn-confirm-reject" *ngIf="isInRejectProcess"
+      (click)="rejectBookReservationRequest(); closeModal('custom-modal-1')">Yes</button>
+      <button type="button" form="ngForm" class="btn btn-confirm-approve" *ngIf="!isInRejectProcess"
+      (click)="approveBookReservationRequest(); closeModal('custom-modal-1')">Yes</button>
+  
+      <button type="button" class="btn btn-cancel"
+        (click)="this.isInRejectProcess = false; this.isInConfirmProcess = false; closeModal('custom-modal-1')">Cancel</button>
+    </app-modal>
+</div>
+  
+  
