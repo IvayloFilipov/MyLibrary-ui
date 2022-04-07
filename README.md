@@ -1,5 +1,5 @@
 # MyLibrary-ui
-Frontend part of the application is created with Angular 12 & TypeScript
+Frontend part of the application is created with Angular 13 & TypeScript
 
  **ABOUT the project:**
  
@@ -14,7 +14,7 @@ Frontend part of the application is created with Angular 12 & TypeScript
 
 This application is designed by using the **main** technologies below:
 
-   1) **[Angular 12](https://angular.io/guide/releases)**
+   1) **[Angular 13](https://angular.io/guide/releases)**
    2) **[TypeScript](https://www.typescripttutorial.net/)**
    3) **[HTML5](https://en.wikipedia.org/wiki/HTML)**
    4) **[CSS](https://www.w3schools.com/css/css_intro.asp)**
